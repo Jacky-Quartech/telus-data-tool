@@ -9,7 +9,7 @@ router.get('/geofence', cors(), async (req, res) => {
     
     await axios.get('https://request-handler-dot-cio-insights-api-dv-a28ee1.nn.r.appspot.com/geofence?key=AIzaSyAkXek_Rea-BxIGc5jduMPfs1EakkTkac4', {
         headers: { 
-            'customerId': process.env.CUSTOMER_ID;
+            'customerId': process.env.CUSTOMER_ID
         }
     })
     .then(function (response) {
