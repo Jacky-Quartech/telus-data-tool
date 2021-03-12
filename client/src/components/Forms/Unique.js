@@ -1,23 +1,21 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 
 //telus imports
 import Paragraph from '@tds/core-paragraph';
 import Button from '@tds/core-button';
-import Heading from '@tds/core-display-heading';
+import Heading from '@tds/core-heading';
 
 //material-ui imports
 import {
     CircularProgress,
     Select,
     MenuItem,
-    InputLabel,
     TextField
 } from '@material-ui/core';
 
-const Work = (props) => {
+const Unique = (props) => {
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
     const [requestData, setRequestData] = useState({});
 
     useEffect(() => {
@@ -26,31 +24,29 @@ const Work = (props) => {
     }, []) 
 
     return (
-        <>
-            {loading ? <CircularProgress /> : <WorkBase requestData={requestData} error={error}/>}
-        </>
+        <div>
+            {loading ? <CircularProgress /> : <UniqueBase requestData={requestData}/>}
+        </div>
     )
 }
 
-const WorkBase = (props) => {
-    const [currentInputRequest, setCurrentInputRequest] = useState('');
-    const [currentOutputRequest, setCurrentOutputRequest] = useState('');
-
+const UniqueBase = (props) => {
+    const [currentInputRequest, setCurrentInputRequest] = useState();
+    
     const formik = useFormik({
         initialValues: {
             inputRequest: '',
             inputStudy: '',
-            outputRequest: '',
-            outputStudy: '',
             startTime: '',
             endTime: '',
             timeBucket: '',
+            timeBucketSize: '',
             minDwellTime: '',
             maxDwellTime: '',
         },
         onSubmit: values => {
             alert(JSON.stringify(values, null, 2))
-            console.log(values);
+            console.log("yo" + values);
         }
     });
 
@@ -86,40 +82,20 @@ const WorkBase = (props) => {
         console.log(props.requestData);
         mapStudyZones('a3a456ec-ecd7-444c-8530-1b3c321c3f2e');
         setCurrentInputRequest('');
-        setCurrentOutputRequest('');
     }, []);
 
     return (
         <div>
             <div><Paragraph>{props.error}</Paragraph></div>
             <div style={{paddingBottom: 20}}><Heading level="h2"> Data Parameters </Heading></div>
-            <form className="dynamic-data-tool-form" onSubmit={formik.onSubmit}>
-                <div className="sub-headers"><InputLabel>Input Geo ID</InputLabel></div>
-                <InputLabel>Request ID</InputLabel>
-                <Select className="select-field" id="inputRequest" name="inputRequest" onChange={(input) => setCurrentInputRequest(input.target.value)} defaultValue={formik.values.inputRequest}>
-                    <MenuItem value=""></MenuItem>
+            <form>
+                <Select className="select-field" id="inputRequest" name="inputRequest" defaultValue={''} onChange={(input) => setCurrentInputRequest(input.target.value)}>
                     {mapRequestIds()}
                 </Select>
-
-                <InputLabel>Study Zone</InputLabel>
-                <Select className="select-field" id="inputStudy" name="inputStudy" onChange={formik.handleChange} defaultValue={formik.values.inputStudy}>
-                    <MenuItem value=""></MenuItem>
+                <Select className="select-field">
                     {mapStudyZones(currentInputRequest)}
                 </Select>
-
-                <div className="sub-headers"><InputLabel>Output Geo ID</InputLabel></div>
-                <InputLabel>Request ID</InputLabel>
-                <Select className="select-field"  defaultValue="" onChange={(input) => setCurrentOutputRequest(input.target.value)}>
-                    <MenuItem value=""></MenuItem>
-                    {mapRequestIds()}
-                </Select>
-
-                <InputLabel>Study Zone</InputLabel>
-                <Select className="select-field" defaultValue="" onChange={formik.handleChange} id="outputStudy" name="outputStudy" >
-                    <MenuItem value=""></MenuItem>
-                    {mapStudyZones(currentOutputRequest)}
-                </Select>
-                
+  
                 <TextField className="textfield" label="Start Time" variant="outlined" placeholder="yyyy-mm-ddT00:00:00" id="startTime" name="startTime" onChange={formik.handleChange} value={formik.values.inputStudy} />
                 <TextField className="textfield" label="End Time" variant="outlined" placeholder="yyyy-mm-ddT00:00:00" id="endTime" name="endTime" onChange={formik.handleChange} value={formik.values.endTime} />
                 <TextField className="textfield" label="Time Bucket Size" variant="outlined" id="timeBucket" name="timeBucket" onChange={formik.handleChange} value={formik.values.timeBucket} />
@@ -129,7 +105,7 @@ const WorkBase = (props) => {
                 <Button variant="standard" name="route-submit" type="submit">Submit Data</Button>
             </form>
         </div>
-    )
+    );
 }
 
-export default Work;
+export default Unique;

@@ -2,12 +2,11 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const cors = require('cors');
-const axios = require('axios');
+const bodyParser = require('body-parser')
 
 dotenv.config();
-const CUSTOMERID = process.env.CUSTOMER_ID;
 
-//route imports
+//import routes
 const countRoute = require('./routes/CountRoute');
 
 //middleware
@@ -19,13 +18,10 @@ app.use(
     })
 );
 
-app.get('/geofence', cors(), async (req, res) => {
-  res.send('okay');
-});
-
 //route middleware
 app.use('/api/count', countRoute);
 
+//start server and set port
 var port = normalizePort(process.env.PORT || '9000');
 app.set('port', port);
 

@@ -1,21 +1,31 @@
 import React, { useEffect, useState, useLayoutEffect } from 'react';
-import InputLabel from '@material-ui/core/InputLabel';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { useFormik } from 'formik';
-import Heading from '@tds/core-heading';
-import Paragraph from '@tds/core-paragraph';
-import Home from './Home';
-import { 
+import {
+    InputLabel,
+    CircularProgress,
     Select,
-    MenuItem
- } from '@material-ui/core';
+    MenuItem,
+} from '@material-ui/core';
 
+//utility imports
+import { useFormik } from 'formik';
 import axios from 'axios';
+
+//telus imports
+import Heading from '@tds/core-heading';
+
+//form imports
+import Home from './Home';
+import DwellTime from './DwellTime';
+import Work from './Work';
+import TotalTrip from './TotalTrip';
+import Unique from './Unique';
+import Origin from './Origin';
+import Destination from './Destination';
 
 const FormBase = (props) => {
     const [requestData, setRequestData] = useState('loading...');
     const [customerId, setCustomerId] = useState('fetching customer id...');
-    const [route, setRoute] = useState('');
+    const [route, setRoute] = useState({target: {value: "Home"}});
     const [loading, setLoading] = useState(true);
 
     const getRequestIDList = async () => {
@@ -40,14 +50,32 @@ const FormBase = (props) => {
         getRequestIDList();
     }, [customerId]);
 
+    const renderForm = (value) => {
+        switch(value) {
+            case "dwelltime": 
+                return <DwellTime requestData={requestData} />
+            case "work":
+                return <Work requestData={requestData} />
+            case "totaltrip":
+                return <TotalTrip requestData={requestData} />
+            case "unique":
+                return <Unique requestData={requestData} />
+            case "origin":
+                return <Origin requestData={requestData} />
+            case "destination":
+                return <Destination requestData={requestData} />
+            default:
+                return <Home requestData={requestData} />
+        }
+    }
+
     return (
         <div>
             <div>    
                 <div style={{paddingBottom: 20}}><Heading level="h2">Request Parameters</Heading></div>
                 <form className="data-selection-form">
                     <InputLabel>Request Type</InputLabel>
-                    <Select className="select-field" name="route" onChange={(route) => {setRoute(route)}} value={route}>
-                        <MenuItem aria-label="" value=''>None Selected</MenuItem>
+                    <Select className="select-field" name="route" onChange={(route) => {setRoute(route); console.log(route.target.value)}} defaultValue="home">
                         <MenuItem value="dwelltime">dwell time</MenuItem>
                         <MenuItem value="home">home</MenuItem>
                         <MenuItem value="totaltrip">total trip</MenuItem>
@@ -67,7 +95,7 @@ const FormBase = (props) => {
                         <MenuItem value="outboundtraveldirection">outbound travel direction</MenuItem>
                     </Select>
                 </form>
-                { loading ? <CircularProgress /> : <Home requestData={requestData} /> }
+                { loading ? <CircularProgress /> : renderForm(route.target.value) }
             </div>
         </div>
     );

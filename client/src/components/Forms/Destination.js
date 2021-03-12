@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 
 //telus imports
@@ -15,7 +15,7 @@ import {
     TextField
 } from '@material-ui/core';
 
-const Work = (props) => {
+const Destination = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [requestData, setRequestData] = useState({});
@@ -27,12 +27,12 @@ const Work = (props) => {
 
     return (
         <>
-            {loading ? <CircularProgress /> : <WorkBase requestData={requestData} error={error}/>}
+            {loading ? <CircularProgress /> : <DestinationBase requestData={requestData} error={error}/>}
         </>
     )
 }
 
-const WorkBase = (props) => {
+const DestinationBase = (props) => {
     const [currentInputRequest, setCurrentInputRequest] = useState('');
     const [currentOutputRequest, setCurrentOutputRequest] = useState('');
 
@@ -121,8 +121,11 @@ const WorkBase = (props) => {
                 </Select>
                 
                 <TextField className="textfield" label="Start Time" variant="outlined" placeholder="yyyy-mm-ddT00:00:00" id="startTime" name="startTime" onChange={formik.handleChange} value={formik.values.inputStudy} />
+                
                 <TextField className="textfield" label="End Time" variant="outlined" placeholder="yyyy-mm-ddT00:00:00" id="endTime" name="endTime" onChange={formik.handleChange} value={formik.values.endTime} />
+                <br/>
                 <TextField className="textfield" label="Time Bucket Size" variant="outlined" id="timeBucket" name="timeBucket" onChange={formik.handleChange} value={formik.values.timeBucket} />
+                <br />
                 <TextField className="textfield" label="Minimum Dwell Time" variant="outlined" id="minDwellTime" name="minDwellTime" onChange={formik.handleChange} value={formik.values.minDwellTime} />
                 <TextField className="textfield" label="Max Dwell Time" variant="outlined" id="maxDwellTime" name="maxDwellTime" onChange={formik.handleChange} value={formik.values.maxDwellTime} />
 
@@ -132,4 +135,4 @@ const WorkBase = (props) => {
     )
 }
 
-export default Work;
+export default Destination;

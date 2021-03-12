@@ -1,12 +1,15 @@
 .header {
     padding-left: 20px;
     padding-top: 20px;
+    padding-bottom: 10em;
 }
 
 .container {
     display: flex;
     justify-content: space-around;
+    flex-direction: row!important;
     align-items: center;
+    width: 100%;
     height: 90vh;
 }
 
@@ -14,27 +17,21 @@
 
 .results {
     display: flex;
-    flex: 1;
     align-items: center;
     justify-content: center;
-    height: 100%;
     width: 100%;
     border-color: black;
     border-width: 1px;
     border-radius: 20px;
-    padding: 20px
+    padding: 20px;
 }
 
 /* Form Styling */
 
 .endpoint-form {
     display: flex;
-    flex: 1;
-    flex-direction: column;
-    margin-top: 15%;
     width: 100%;
-    height: 100%;
-    padding-left: 2em;
+    padding: 2em;
 }
 
 .sub-headers {
@@ -43,5 +40,10 @@
 
 .select-field {
     width: 100%;
-    margin-bottom: 16px
+    margin-bottom: 16px;
+}
+
+.textfield {
+    width: 100%;
+    margin-bottom: 16px!important;
 }

@@ -15,7 +15,7 @@ import {
     TextField
 } from '@material-ui/core';
 
-const Work = (props) => {
+const Origin = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [requestData, setRequestData] = useState({});
@@ -27,12 +27,12 @@ const Work = (props) => {
 
     return (
         <>
-            {loading ? <CircularProgress /> : <WorkBase requestData={requestData} error={error}/>}
+            {loading ? <CircularProgress /> : <OriginBase requestData={requestData} error={error}/>}
         </>
     )
 }
 
-const WorkBase = (props) => {
+const OriginBase = (props) => {
     const [currentInputRequest, setCurrentInputRequest] = useState('');
     const [currentOutputRequest, setCurrentOutputRequest] = useState('');
 
@@ -120,11 +120,14 @@ const WorkBase = (props) => {
                     {mapStudyZones(currentOutputRequest)}
                 </Select>
                 
-                <TextField className="textfield" label="Start Time" variant="outlined" placeholder="yyyy-mm-ddT00:00:00" id="startTime" name="startTime" onChange={formik.handleChange} value={formik.values.inputStudy} />
-                <TextField className="textfield" label="End Time" variant="outlined" placeholder="yyyy-mm-ddT00:00:00" id="endTime" name="endTime" onChange={formik.handleChange} value={formik.values.endTime} />
-                <TextField className="textfield" label="Time Bucket Size" variant="outlined" id="timeBucket" name="timeBucket" onChange={formik.handleChange} value={formik.values.timeBucket} />
-                <TextField className="textfield" label="Minimum Dwell Time" variant="outlined" id="minDwellTime" name="minDwellTime" onChange={formik.handleChange} value={formik.values.minDwellTime} />
-                <TextField className="textfield" label="Max Dwell Time" variant="outlined" id="maxDwellTime" name="maxDwellTime" onChange={formik.handleChange} value={formik.values.maxDwellTime} />
+                <TextField label="Start Time" variant="outlined" placeholder="yyyy-mm-ddT00:00:00" id="startTime" name="startTime" onChange={formik.handleChange} value={formik.values.inputStudy} />
+                
+                <TextField label="End Time" variant="outlined" placeholder="yyyy-mm-ddT00:00:00" id="endTime" name="endTime" onChange={formik.handleChange} value={formik.values.endTime} />
+                <br/>
+                <TextField label="Time Bucket Size" variant="outlined" id="timeBucket" name="timeBucket" onChange={formik.handleChange} value={formik.values.timeBucket} />
+                <br />
+                <TextField label="Minimum Dwell Time" variant="outlined" id="minDwellTime" name="minDwellTime" onChange={formik.handleChange} value={formik.values.minDwellTime} />
+                <TextField label="Max Dwell Time" variant="outlined" id="maxDwellTime" name="maxDwellTime" onChange={formik.handleChange} value={formik.values.maxDwellTime} />
 
                 <Button variant="standard" name="route-submit" type="submit">Submit Data</Button>
             </form>
@@ -132,4 +135,4 @@ const WorkBase = (props) => {
     )
 }
 
-export default Work;
+export default Origin;
